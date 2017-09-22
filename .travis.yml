@@ -1,0 +1,26 @@
+sudo: required
+language: ruby
+services:
+  - docker
+
+notifications:
+  irc:
+    on_success: never
+    channels:
+      - "chat.freenode.net#yast"
+    template:
+      - "Hey, the systemd service status check in %{repository} failed!"
+      - "More details: %{build_url}"  
+  email:
+    on_success: never
+    recipients:
+      - lslezak@suse.cz
+
+before_install:
+  - docker build -t systemd-change-guard-image .
+  # list the installed packages (just for easier debugging)
+  - docker run --rm -it systemd-change-guard-image rpm -qa | sort
+
+script:
+  - docker run --rm -it systemd-change-guard-image ./systemd_status_check.rb
+
