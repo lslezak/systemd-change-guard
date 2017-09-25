@@ -1,12 +1,12 @@
 ---
-unit active:
+unit active states:
 - activating
 - active
 - deactivating
 - failed
 - inactive
 - reloading
-service unit:
+service unit substates:
 - auto-restart
 - dead
 - exited

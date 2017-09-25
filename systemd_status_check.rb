@@ -27,11 +27,8 @@ def parse_status_help(help)
     lines = group.split("\n")
     header = lines.shift
 
-    if header =~ /Available (.*) (sub|)states:/
-      states[Regexp.last_match[1]] = lines.sort
-    else
-      raise "Cannot parse header: #{header}"
-    end
+    raise "Cannot parse header: #{header}" unless header =~ /Available (.*):/
+    states[Regexp.last_match[1]] = lines.sort
   end
 
   states
@@ -79,7 +76,7 @@ def compare_states(expected, current)
 
     # sort the states to accept different order
     known_states = states.sort
-    current_states = current[name].sort
+    current_states = (current[name] || []).sort
 
     if known_states == current_states
       puts Rainbow("Found expected states in the #{name.inspect} group:").green
