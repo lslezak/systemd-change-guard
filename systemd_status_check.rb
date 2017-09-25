@@ -51,10 +51,10 @@ def print_lsc_diff(diff)
   when "-"
     puts Rainbow("- #{diff.old_element}").red
   when "+"
-    puts Rainbow("+ #{diff.new_element}").green
+    puts Rainbow("+ #{diff.new_element}").yellow
   when "!"
     puts Rainbow("- #{diff.old_element}").red
-    puts Rainbow("+ #{diff.new_element}").green
+    puts Rainbow("+ #{diff.new_element}").yellow
   else
     puts "  #{diff.old_element}"
   end
